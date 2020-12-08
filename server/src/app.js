@@ -13,3 +13,6 @@ app.listen(8081);
 app.get('/status', (req,res) =>{
     res.send({message: "Yah, it's working!"});
 });
+app.post('/register', (req,res) =>{
+    res.send({message: 'user registered.' + req.body.email});
+});
