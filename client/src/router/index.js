@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Register from '@/components/register'
+import Register from '@/components/Register'
+import Login from '@/components/Login'
+import Shop from '@/components/Shop'
+import CreateProduct from '@/components/CreateProduct'
+import EditProduct from '@/components/EditProduct'
 
 Vue.use(Router)
 
@@ -16,6 +20,26 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/shop',
+      name: 'Shop',
+      component: Shop
+    },
+    {
+      path: '/shop/create',
+      name: 'Product-Create',
+      component: CreateProduct
+    },
+    {
+      path: '/shop/:productId/edit',
+      name: 'Product-Edit',
+      component: EditProduct
     }
   ]
 })
