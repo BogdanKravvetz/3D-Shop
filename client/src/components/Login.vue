@@ -14,7 +14,7 @@
           <div class="error" v-html="error"></div>
           <br />
           <br />
-          <v-btn @click="login">Login</v-btn>
+          <v-btn @click="login" dark>Login</v-btn>
         </div>
       </div>
     </v-flex>
@@ -41,6 +41,7 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$router.push('shop');
       } catch (error) {
         this.error = error.response.data.error
       }

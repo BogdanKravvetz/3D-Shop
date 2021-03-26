@@ -21,8 +21,15 @@ module.exports = (sequelize, DataTypes)=> {
             type: DataTypes.STRING,
             unique: true,
         },
-        password: DataTypes.STRING
-    },{
+        password: DataTypes.STRING,
+        firstName: DataTypes.STRING,
+        lastName: DataTypes.STRING,
+        phone: DataTypes.STRING,
+        isVerified: DataTypes.BOOLEAN,
+        isAdmin: DataTypes.BOOLEAN,
+        isDeleted: DataTypes.BOOLEAN
+    },
+    {
         hooks:{
             // beforeCreate: hashPassword,
             // beforeUpdate: hashPassword,

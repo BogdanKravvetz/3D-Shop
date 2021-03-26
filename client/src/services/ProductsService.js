@@ -19,5 +19,4 @@ export default{
   getProductModel (filename){
     return Api().get(`/products/${filename}`)
   }
-
 }

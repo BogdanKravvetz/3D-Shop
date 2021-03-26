@@ -1,4 +1,6 @@
-module.exports = (sequelize, DataTypes)=> {
+// const Tag = require('../models/Tag');
+
+module.exports = (sequelize, DataTypes) => {
 
     const Product = sequelize.define('Product', {
         name: DataTypes.STRING,
@@ -7,5 +9,10 @@ module.exports = (sequelize, DataTypes)=> {
         price: DataTypes.DOUBLE,
         isDeleted: DataTypes.BOOLEAN
     })
+    Product.associate = function (models) {
+        Product.belongsToMany(models.Tag, { through: models.ProductTag });
+        models.Tag.belongsToMany(Product, { through: models.ProductTag });
+    }
+
     return Product
 }

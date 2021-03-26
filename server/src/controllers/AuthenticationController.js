@@ -24,7 +24,6 @@ module.exports = {
                 }
             )
         }
-        // res.send({message: 'user registered.' + req.body.email});
     },
     async login (req,res) {
         try{

@@ -6,7 +6,7 @@
     </v-toolbar-items>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn v-if="$store.state.isUserLoggedIn" text dark>{{$store.state.user.email}}</v-btn>
+      <v-btn v-if="$store.state.isUserLoggedIn" text dark>{{$store.state.user.firstName +' '+ $store.state.user.lastName}}</v-btn>
       <v-btn v-if="!$store.state.isUserLoggedIn" text dark @click="navigateTo({name:'Login'})">Login</v-btn>
       <v-btn v-if="!$store.state.isUserLoggedIn" text dark @click="navigateTo({name:'Register'})">Sign Up</v-btn>
       <v-btn v-if="$store.state.isUserLoggedIn" text dark @click="logout">Log Out</v-btn>

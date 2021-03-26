@@ -1,7 +1,12 @@
 import axios from 'axios'
+import ConfigApi from './ConfigApi'
+import store from '@/store/store'
 
 export default() => {
   return axios.create({
-    baseURL: 'http://192.168.0.47:8081/'
+    baseURL: ConfigApi.connection.link + ":" + ConfigApi.connection.port,
+    headers: {
+      Authorization: `Bearer ${store.state.token}`
+    }
   })
 }
