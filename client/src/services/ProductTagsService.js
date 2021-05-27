@@ -14,6 +14,6 @@ export default{
     return Api().get(`productTags/${productId}`)
   },
   getProductsWithTag(tagId){
-    return Api().get(`productTags/${tagId}`)
+    return Api().get(`productTags/tags/${tagId}`)
   },
 }

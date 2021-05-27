@@ -10,7 +10,8 @@ export default new Vuex.Store({
     state: {
         token: null,
         user: null,
-        isUserLoggedIn: false
+        isUserLoggedIn: false,
+        // cartItems: []
     },
     mutations: {
         setToken(state, token) {
@@ -23,7 +24,10 @@ export default new Vuex.Store({
         },
         setUser(state, user) {
             state.user = user
-        }
+        },
+        // setCartItems(state, cartItems){
+        //     state.cartItems = cartItems
+        // }
     },
     actions: {
         setToken({ commit }, token) {
@@ -33,6 +37,9 @@ export default new Vuex.Store({
         },
         setUser({ commit }, user) {
             commit('setUser', user)
-        }
+        },
+        // setCartItems({commit}, cartItems){
+        //     commit(("setCartItems"),cartItems)
+        // }
     }
 })

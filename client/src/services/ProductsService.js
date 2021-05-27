@@ -16,6 +16,9 @@ export default{
   upload (formData){
     return Api().post('/upload', formData)
   },
+  uploadStl (formData){
+    return Api().post('/uploadStl', formData)
+  },
   getProductModel (filename){
     return Api().get(`/products/${filename}`)
   }

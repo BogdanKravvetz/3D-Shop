@@ -4,7 +4,10 @@ module.exports = {
     async getAllProducts(req, res) {
         try {
             const products = await Product.findAll({
-                where: { isDeleted: false }
+                where: {
+                    isDeleted: false,
+                    isCustom: null
+                }
                 //limit: 30
             })
             res.send(products)

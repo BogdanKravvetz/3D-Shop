@@ -62,6 +62,7 @@ export default {
         filePath: null,
         price: null,
         isDeleted: false,
+        isCustom: false,
         tagIds: [],
       },
       productTags: [],

@@ -15,7 +15,7 @@
             <v-icon>label</v-icon>
           </v-list-item-icon>
           <v-list-item-content @click="navigateTo({ name: 'Product-Create' })">
-            <v-list-item-title>Add Product</v-list-item-title>
+            <v-list-item-title>Add Model</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -36,6 +36,14 @@
             <v-list-item-title>Colors</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>label</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content @click="navigateTo({ name: 'OrdersAdmin' })">
+            <v-list-item-title>Orders</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-flex>
 
@@ -54,7 +62,7 @@
           <v-list-item-icon>
             <v-icon>tag</v-icon>
           </v-list-item-icon>
-          <v-list-item-content>
+          <v-list-item-content @click="showAllProducts">
             <v-list-item-title>All</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -62,7 +70,7 @@
           <v-list-item-icon>
             <v-icon>tag</v-icon>
           </v-list-item-icon>
-          <v-list-item-content>
+          <v-list-item-content @click="showProductsWithTag(item)">
             <v-list-item-title>{{ item.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -73,13 +81,14 @@
 
 <script>
 import TagsService from "@/services/TagsService";
+import Shop from "./Shop";
 export default {
   data() {
     return {
       items: null,
-      right: null,
     };
   },
+
   async mounted() {
     //fetch all available tags from the server
     this.items = (await TagsService.getAllTags()).data;
@@ -87,6 +96,12 @@ export default {
   methods: {
     navigateTo(route) {
       this.$router.push(route);
+    },
+    showAllProducts() {
+      this.$root.$refs.Shop.showAllProducts();
+    },
+    showProductsWithTag(obj) {
+      this.$root.$refs.Shop.showProductsWithTag(obj);
     },
   },
 };

@@ -26,7 +26,6 @@
         :rules="rules"
         type="number"
       ></v-text-field>
-      <h1>TODO: Choose tags/colors</h1>
       <v-flex>
         <v-btn dark x-large>
           <label>
@@ -44,7 +43,8 @@
             />
           </label>
         </v-btn>
-        <div v-if="file">{{ file.name }}</div>
+        <h3 v-if="!file" class="display-1">Upload 3D Model</h3>
+        <h3 v-if="file" class="display-1">{{ file.name }}</h3>
         <v-flex v-for="tag in productTags" :key="tag.id">
           <v-chip dark @click="removeTag(tag)">{{ tag.name }}</v-chip>
           <br />
@@ -77,6 +77,7 @@ export default {
         filePath: "null",
         price: null,
         isDeleted: false,
+        isCustom: false,
         //selected tag ids for this product
         tagIds: []
       },

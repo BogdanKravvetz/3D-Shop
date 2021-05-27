@@ -8,6 +8,12 @@ import CreateProduct from '@/components/CreateProduct'
 import EditProduct from '@/components/EditProduct'
 import TagsManager from '@/components/TagsManager'
 import ColorManager from '@/components/ColorManager'
+import Cart from '@/components/Cart'
+import Order from '@/components/Order'
+import UserOrders from '@/components/UserOrders'
+import OrdersAdmin from '@/components/OrdersAdmin'
+import CustomOrder from '@/components/CustomOrder'
+
 
 Vue.use(Router)
 
@@ -47,12 +53,36 @@ export default new Router({
       path: '/shop/tags',
       name: 'Tag-Edit',
       component: TagsManager
-    }
-    ,
+    },
     {
       path: '/shop/colors',
       name: 'Color-Edit',
       component: ColorManager
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
+    },
+    {
+      path: '/order',
+      name: 'Order',
+      component: Order
+    },
+    {
+      path: '/userOrders',
+      name: 'UserOrders',
+      component: UserOrders
+    },
+    {
+      path: '/ordersAdmins',
+      name: 'OrdersAdmin',
+      component: OrdersAdmin
+    },
+    {
+      path: '/customOrder',
+      name: 'CustomOrder',
+      component: CustomOrder
     }
   ]
 })

@@ -18,7 +18,7 @@ module.exports = {
     },
     async getProductsWithTag(req, res) {
         try {
-            const {tagId} = req.query
+            const tagId = req.params.tagId
             const productTags = await ProductTag.findAll({
                 where: { 
                     TagId: tagId

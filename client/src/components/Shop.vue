@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md align-content-start>
     <sidebar></sidebar>
     <h1>Wellcome!</h1>
-    <v-text-field label="Search Products" v-model="search"></v-text-field>
+    <v-text-field label="Search" v-model="search"></v-text-field>
     <v-layout row wrap v-if="dataIsHere">
       <v-flex v-for="product in filteredList" :key="product.id">
         <product
@@ -20,6 +20,7 @@
 import Product from "./Product.vue";
 import Sidebar from "./Sidebar.vue";
 import ProductsService from "@/services/ProductsService";
+import ProductTagsService from "@/services/ProductTagsService";
 import ConfigApi from "@/services/ConfigApi";
 
 export default {
@@ -36,13 +37,16 @@ export default {
         ConfigApi.connection.port +
         "/products/",
       search: "",
-      dataIsHere: false
+      dataIsHere: false,
     };
+  },
+  created() {
+    this.$root.$refs.Shop = this;
   },
   async mounted() {
     //fetch all available products from the server
     this.products = (await ProductsService.getAllProducts()).data;
-    this.dataIsHere = true
+    this.dataIsHere = true;
   },
   component: {
     Product,
@@ -52,6 +56,22 @@ export default {
     filteredList() {
       return this.products.filter((product) => {
         return product.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    },
+  },
+  methods: {
+    async showAllProducts() {
+      this.products = (await ProductsService.getAllProducts()).data;
+    },
+    async showProductsWithTag(tag) {
+      const productsWithTag = (
+        await ProductTagsService.getProductsWithTag(tag.id)
+      ).data;
+      this.products = (await ProductsService.getAllProducts()).data;
+      this.products = this.products.filter((product) => {
+        return productsWithTag.some((prodTag) => {
+          return prodTag.ProductId === product.id;
+        });
       });
     },
   },
