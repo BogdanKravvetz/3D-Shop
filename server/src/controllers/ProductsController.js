@@ -6,7 +6,7 @@ module.exports = {
             const products = await Product.findAll({
                 where: {
                     isDeleted: false,
-                    isCustom: null
+                    isCustom: false
                 }
                 //limit: 30
             })
@@ -26,6 +26,7 @@ module.exports = {
                 description: req.body.description,
                 filePath: req.body.filePath,
                 price: req.body.price,
+                isCustom: req.body.isCustom,
                 isDeleted: req.body.isDeleted,
             }
 

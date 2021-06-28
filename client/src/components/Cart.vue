@@ -1,34 +1,40 @@
 <template>
   <v-container>
-    <h2 v-if="isEmpty">Your cart is empty, visit the shop!</h2>
-    <v-card v-if="!isEmpty">
-        <v-card-title primary-title>
-          <h3>Product</h3>
-          <v-spacer></v-spacer>
-          <!-- <v-color-input class="border" v-model="color.hex" :label="color.name" hideCanvas hideInputs hideSliders/> -->
-          <h4 class="pl-6">Color</h4>
-          <h4 class="pl-6">Price</h4>
-          <h4 class="pl-6">Quantity</h4>
-<!--     
-          <v-btn class="red" @click="remove" 
-            ><div class="material-icons"> close </div></v-btn
-          > -->
-        </v-card-title>
+    <v-flex xs8 offset-xs2>
+      <v-card elevation="5">
+        <h2 v-if="isEmpty">Your cart is empty, visit the shop!</h2>
+        <h1 v-if="!isEmpty" class="display-3">Your items</h1>
+        <table v-if="!isEmpty" width="100%" class="pl-6 pr-6">
+          <tr>
+            <td width="30%"><h2>Product</h2></td>
+            <td width="10%"><h3>Color</h3></td>
+            <td width="10%"><h3>Price</h3></td>
+            <td width="30%"><h3>Quantity</h3></td>
+            <td width="20%"><h3>Remove</h3></td>
+          </tr>
+        </table>
+        <v-card
+          v-for="cartItem in cartItems"
+          :key="cartItem.id"
+          
+        >
+          <cart-item
+            :id="cartItem.id"
+            :userId="cartItem.UserId"
+            :productId="cartItem.ProductId"
+            :colorId="cartItem.ColorId"
+            :quantity="cartItem.quantity"
+            :isDeleted="cartItem.isDeleted"
+            class="pl-6 pr-6"
+          ></cart-item>
+        </v-card>
+        <br />
+        <v-btn dark v-if="!isEmpty" @click="navigateTo({ name: 'Order' })"
+          >Finalize Order</v-btn
+        >
+        <p class="myColor">.</p>
       </v-card>
-      <br>
-    <v-flex v-for="cartItem in cartItems" :key="cartItem.id">
-      <cart-item
-        :id="cartItem.id"
-        :userId="cartItem.UserId"
-        :productId="cartItem.ProductId"
-        :colorId="cartItem.ColorId"
-        :quantity="cartItem.quantity"
-        :isDeleted="cartItem.isDeleted"
-      ></cart-item>
     </v-flex>
-    <v-btn dark v-if="!isEmpty" @click="navigateTo({ name: 'Order' })"
-      >Finalize Order></v-btn
-    >
   </v-container>
 </template>
 
@@ -63,4 +69,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.myColor {
+  color: white;
+}
+
 </style>

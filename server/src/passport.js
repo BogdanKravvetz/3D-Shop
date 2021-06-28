@@ -8,7 +8,7 @@ const config = require('./config/dbconfig')
 
 passport.use(
     new JwtStrategy({
-        //will verifiy if the token that come in is valit
+        //will verifiy if the token that come in is valid
         jwtFromRequest: ExtratJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: config.authentication.jwtSecert
     }, async function (jwtPayload,done) {

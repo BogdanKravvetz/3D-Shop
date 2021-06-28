@@ -21,5 +21,8 @@ export default{
   },
   getProductModel (filename){
     return Api().get(`/products/${filename}`)
+  },
+  download (product){ 
+    return Api().get(`/download/${product.filePath}`)
   }
 }

@@ -102,6 +102,17 @@ module.exports = (app) => {
     app.post('/uploadStl', uploadStl.single('file'), ProductsController.adminUpload)
     app.use(ProductsController.uploadError)
 
+    //download
+    app.get('/download/:productFilePath', function(req, res){
+        const filePath = req.params.productFilePath
+        console.log("PARAMS:" + {req})
+        console.log(req.params.productFilePath)
+        const file = "./uploads/" + filePath;
+        
+        res.download(file);
+      });
+
+
     //tags end points
     app.get('/tags', TagsController.getAllTags)
     app.post('/tags', TagsController.createTag)

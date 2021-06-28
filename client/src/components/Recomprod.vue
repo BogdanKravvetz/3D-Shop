@@ -1,10 +1,9 @@
 <template>
-<v-container fluid ma-0 pa-0 fill-height style="margin: 0px; padding: 0px; width: 100%">
-  <v-layout>
-    <v-flex>
-      <v-card v-if="isMounted" elevation="5" min-width = "795px">
+  <v-layout class="pr-1">
+    <v-flex d-flex xs12 md12>
+      <v-card v-if="isMounted" elevation="5">
         <model-viewer
-          :id="id"
+          :id="id + 'a'"
           refs="model"
           v-if="isMounted"
           :src="filePath"
@@ -19,84 +18,84 @@
           @mouseleave="setInvisible"
         >
           <button
-            slot="hotspot-dot+X-Y+Z"
-            class="dot"
+            slot="hotspot-dot+X-Y+Z2"
+            class="dot2"
             data-position="1 -1 1"
             data-normal="1 0 0"
           ></button>
           <button
-            slot="hotspot-dim+X-Y"
-            class="dim"
+            slot="hotspot-dim+X-Y2"
+            class="dim2"
             data-position="1 -1 0"
             data-normal="1 0 0"
           ></button>
           <button
-            slot="hotspot-dot+X-Y-Z"
-            class="dot"
+            slot="hotspot-dot+X-Y-Z2"
+            class="dot2"
             data-position="1 -1 -1"
             data-normal="1 0 0"
           ></button>
           <button
-            slot="hotspot-dim+X-Z"
-            class="dim"
+            slot="hotspot-dim+X-Z2"
+            class="dim2"
             data-position="1 0 -1"
             data-normal="1 0 0"
           ></button>
           <button
-            slot="hotspot-dot+X+Y-Z"
-            class="dot show"
+            slot="hotspot-dot+X+Y-Z2"
+            class="dot2 show2"
             data-position="1 1 -1"
             data-normal="0 1 0"
           ></button>
           <button
-            slot="hotspot-dim+Y-Z"
-            class="dim show"
+            slot="hotspot-dim+Y-Z2"
+            class="dim2 show2"
             data-position="0 -1 -1"
             data-normal="0 1 0"
           ></button>
           <button
-            slot="hotspot-dot-X+Y-Z"
-            class="dot show"
+            slot="hotspot-dot-X+Y-Z2"
+            class="dot2 show2"
             data-position="-1 1 -1"
             data-normal="0 1 0"
           ></button>
           <button
-            slot="hotspot-dim-X-Z"
-            class="dim"
+            slot="hotspot-dim-X-Z2"
+            class="dim2"
             data-position="-1 0 -1"
             data-normal="-1 0 0"
           ></button>
           <button
-            slot="hotspot-dot-X-Y-Z"
-            class="dot"
+            slot="hotspot-dot-X-Y-Z2"
+            class="dot2"
             data-position="-1 -1 -1"
             data-normal="-1 0 0"
           ></button>
           <button
-            slot="hotspot-dim-X-Y"
-            class="dim"
+            slot="hotspot-dim-X-Y2"
+            class="dim2"
             data-position="-1 -1 0"
             data-normal="-1 0 0"
           ></button>
           <button
-            slot="hotspot-dot-X-Y+Z"
-            class="dot"
+            slot="hotspot-dot-X-Y+Z2"
+            class="dot2"
             data-position="-1 -1 1"
             data-normal="-1 0 0"
           ></button>
         </model-viewer>
-        <v-card-title primary-title>
+        <!-- <v-card-title primary-title>
           <div>
-            <h3 class="headline mb-0">{{ name }}</h3>
+            <h5 class="headline mb-0">{{ name }}</h5>
             <div class="description">{{ description }}</div>
           </div>
-        </v-card-title>
+        </v-card-title> -->
         <v-card-actions>
           <div>
-            <h2>{{ price }} €</h2>
+            <h4>{{ price }} €</h4>
           </div>
           <v-spacer></v-spacer>
-          <v-btn
+          <!-- <v-btn
             class="green"
             @click="download"
             v-if="$store.state.isUserLoggedIn && $store.state.user.isAdmin"
@@ -109,7 +108,7 @@
               navigateTo({ name: 'Product-Edit', params: { productId: id } })
             "
             >Edit</v-btn
-          >
+          > -->
           <v-btn
             @click="addToCart"
             :dark="$store.state.isUserLoggedIn"
@@ -144,7 +143,6 @@
       </v-card>
     </v-flex>
   </v-layout>
-  </v-container>
 </template>
 
 <script>
@@ -177,15 +175,15 @@ export default {
     navigateTo(route) {
       this.$router.push(route);
     },
-    async download() {
-      let modelViewer = document.getElementById(this.id);
-      const glTF = await modelViewer.exportScene();
-      var file = new File([glTF], this.filePath );
-      var link = document.createElement("a");
-      link.download = file.name;
-      link.href = URL.createObjectURL(file);
-      link.click();
-    },
+    // async download() {
+    //   let modelViewer = document.getElementById(this.id);
+    //   const glTF = await modelViewer.exportScene();
+    //   var file = new File([glTF], this.filePath );
+    //   var link = document.createElement("a");
+    //   link.download = file.name;
+    //   link.href = URL.createObjectURL(file);
+    //   link.click();
+    // },
     hexToRgb(hex) {
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result
@@ -198,7 +196,7 @@ export default {
     },
     changeColor() {
       if (this.isMounted) {
-        const modelViewerColor = document.getElementById(this.id);
+        const modelViewerColor = document.getElementById(this.id+"a");
         const rgbColor = this.hexToRgb(this.color);
         const colorString =
           rgbColor.r + "," + rgbColor.g + "," + rgbColor.b + ",1";
@@ -210,7 +208,7 @@ export default {
       }
     },
     getDimentions() {
-      const modelViewer = document.getElementById(this.id);
+      const modelViewer = document.getElementById(this.id+"a");
       if (!modelViewer) {
         return;
       }
@@ -222,92 +220,92 @@ export default {
       const z2 = size.z / 2;
 
       modelViewer.updateHotspot({
-        name: "hotspot-dot+X-Y+Z",
+        name: "hotspot-dot+X-Y+Z2",
         position: `${center.x + x2} ${center.y - y2} ${center.z + z2}`,
       });
 
       modelViewer.updateHotspot({
-        name: "hotspot-dim+X-Y",
+        name: "hotspot-dim+X-Y2",
         position: `${center.x + x2} ${center.y - y2} ${center.z}`,
       });
       modelViewer.querySelector(
-        'button[slot="hotspot-dim+X-Y"]'
+        'button[slot="hotspot-dim+X-Y2"]'
       ).textContent = `${(size.z * 100).toFixed(0)} cm`;
 
       modelViewer.updateHotspot({
-        name: "hotspot-dot+X-Y-Z",
+        name: "hotspot-dot+X-Y-Z2",
         position: `${center.x + x2} ${center.y - y2} ${center.z - z2}`,
       });
 
       modelViewer.updateHotspot({
-        name: "hotspot-dim+X-Z",
+        name: "hotspot-dim+X-Z2",
         position: `${center.x + x2} ${center.y} ${center.z - z2}`,
       });
       modelViewer.querySelector(
-        'button[slot="hotspot-dim+X-Z"]'
+        'button[slot="hotspot-dim+X-Z2"]'
       ).textContent = `${(size.y * 100).toFixed(0)} cm`;
 
       modelViewer.updateHotspot({
-        name: "hotspot-dot+X+Y-Z",
+        name: "hotspot-dot+X+Y-Z2",
         position: `${center.x + x2} ${center.y + y2} ${center.z - z2}`,
       });
 
       modelViewer.updateHotspot({
-        name: "hotspot-dim+Y-Z",
+        name: "hotspot-dim+Y-Z2",
         position: `${center.x} ${center.y + y2} ${center.z - z2}`,
       });
       modelViewer.querySelector(
-        'button[slot="hotspot-dim+Y-Z"]'
+        'button[slot="hotspot-dim+Y-Z2"]'
       ).textContent = `${(size.x * 100).toFixed(0)} cm`;
 
       modelViewer.updateHotspot({
-        name: "hotspot-dot-X+Y-Z",
+        name: "hotspot-dot-X+Y-Z2",
         position: `${center.x - x2} ${center.y + y2} ${center.z - z2}`,
       });
 
       modelViewer.updateHotspot({
-        name: "hotspot-dim-X-Z",
+        name: "hotspot-dim-X-Z2",
         position: `${center.x - x2} ${center.y} ${center.z - z2}`,
       });
       modelViewer.querySelector(
-        'button[slot="hotspot-dim-X-Z"]'
+        'button[slot="hotspot-dim-X-Z2"]'
       ).textContent = `${(size.y * 100).toFixed(0)} cm`;
 
       modelViewer.updateHotspot({
-        name: "hotspot-dot-X-Y-Z",
+        name: "hotspot-dot-X-Y-Z2",
         position: `${center.x - x2} ${center.y - y2} ${center.z - z2}`,
       });
 
       modelViewer.updateHotspot({
-        name: "hotspot-dim-X-Y",
+        name: "hotspot-dim-X-Y2",
         position: `${center.x - x2} ${center.y - y2} ${center.z}`,
       });
       modelViewer.querySelector(
-        'button[slot="hotspot-dim-X-Y"]'
+        'button[slot="hotspot-dim-X-Y2"]'
       ).textContent = `${(size.z * 100).toFixed(0)} cm`;
 
       modelViewer.updateHotspot({
-        name: "hotspot-dot-X-Y+Z",
+        name: "hotspot-dot-X-Y+Z2",
         position: `${center.x - x2} ${center.y - y2} ${center.z + z2}`,
       });
       this.setInvisible();
     },
     setVisible() {
-      const modelViewer = document.getElementById(this.id);
+      const modelViewer = document.getElementById(this.id+"a");
       if (!modelViewer) {
         return;
       }
       modelViewer.querySelectorAll("button").forEach((hotspot) => {
-        hotspot.classList.remove("hide");
+        hotspot.classList.remove("hide2");
       });
     },
     setInvisible() {
-      const modelViewer = document.getElementById(this.id);
+      const modelViewer = document.getElementById(this.id+"a");
       if (!modelViewer) {
         return;
       }
       modelViewer.querySelectorAll("button").forEach((hotspot) => {
-        hotspot.classList.add("hide");
+        hotspot.classList.add("hide2");
       });
     },
     async addToCart() {
@@ -339,16 +337,16 @@ export default {
   background-color: rgb(63, 63, 63);
 } */
 model-viewer {
-  height: 500px;
-  width: 100%;
-  min-width: 10%;
+  height: 200px;
+  width: 400px;
+  max-width: 100%;
   background-color: rgb(63, 63, 63);
 }
 .description {
   font-size: 14px;
 }
 
-#controls {
+#controls2 {
   position: absolute;
   bottom: 16px;
   left: 16px;
@@ -356,24 +354,24 @@ model-viewer {
   transform: unset;
 }
 
-.dot {
+.dot2 {
   display: block;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(97, 96, 96, 0.25);
   background: rgb(0, 0, 0);
   --min-hotspot-opacity: 0;
 }
 
-.dim {
+.dim2 {
   background: rgb(31, 31, 31);
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(97, 97, 97, 0.25);
   color: rgba(255, 255, 255, 0.8);
   display: block;
   font-family: Futura, Helvetica Neue, sans-serif;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 700;
   max-width: 128px;
   overflow-wrap: break-word;
@@ -385,11 +383,11 @@ model-viewer {
   --min-hotspot-opacity: 0;
 }
 
-.show {
+.show2 {
   --min-hotspot-opacity: 1;
 }
 
-.hide {
+.hide2 {
   display: none;
 }
 /* This keeps child nodes hidden while the element loads */

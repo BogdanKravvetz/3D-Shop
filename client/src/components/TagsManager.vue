@@ -1,24 +1,29 @@
 <template>
   <v-container>
-    <h1 class="display-4">Tags Manager</h1>
-    <br />
-    <v-text-field label="Search Tags" v-model="search"></v-text-field>
-    <br />
-    <v-btn large dark fab @click="add">
-      <span class="material-icons"> add_circle </span>
-    </v-btn>
-    <br />
-    <br />
-    <v-flex v-if="dataIsHere">
-      <v-flex v-for="tag in filteredList" :key="tag.id">
-        <tag
-          :id="tag.id"
-          :name="tag.name"
-          :relevance="tag.relevance"
-          :isDeleted="tag.isDeleted"
-        ></tag>
+    <v-flex xs6 offset-xs3>
+      <v-card elevation="5">
+        <h1 class="display-3">Tags Manager</h1>
         <br />
-      </v-flex>
+        <v-text-field label="Search Tags" v-model="search" class="pl-12 pr-12"></v-text-field>
+        <br />
+        <v-btn large dark fab @click="add">
+          <span class="material-icons"> add_circle </span>
+        </v-btn>
+        <br />
+        <br />
+        <v-flex v-if="dataIsHere">
+          <v-flex v-for="tag in filteredList" :key="tag.id">
+            <tag
+              :id="tag.id"
+              :name="tag.name"
+              :relevance="tag.relevance"
+              :isDeleted="tag.isDeleted"
+              class="pl-12 pr-12"
+            ></tag>
+            <br />
+          </v-flex>
+        </v-flex>
+      </v-card>
     </v-flex>
   </v-container>
 </template>

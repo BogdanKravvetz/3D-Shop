@@ -11,7 +11,6 @@ export default new Vuex.Store({
         token: null,
         user: null,
         isUserLoggedIn: false,
-        // cartItems: []
     },
     mutations: {
         setToken(state, token) {

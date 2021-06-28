@@ -1,66 +1,110 @@
 <template>
   <v-container>
-    <h1 class="display-4">Create A New Product</h1>
-    <v-form
-      ref="form"
-      lazy-validation
-      enctype="multipart/form-data"
-      method="POST"
-    >
-      <v-text-field
-        label="Name"
-        v-model="product.name"
-        required
-        :rules="rules"
-      ></v-text-field>
-      <v-text-field
-        label="Description"
-        v-model="product.description"
-        required
-        :rules="rules"
-      ></v-text-field>
-      <v-text-field
-        label="Price"
-        v-model="product.price"
-        required
-        :rules="rules"
-        type="number"
-      ></v-text-field>
-      <v-flex>
-        <v-btn dark x-large>
-          <label>
-            <div>
-              <span class="material-icons"> file_upload </span>
-              <div>Choose a .GLB file</div>
-            </div>
-            <input
-              type="file"
-              id="file"
-              ref="file"
-              v-on:change="handleFileUpload()"
-              class="file-input"
-              accept=".glb"
-            />
-          </label>
-        </v-btn>
-        <h3 v-if="!file" class="display-1">Upload 3D Model</h3>
-        <h3 v-if="file" class="display-1">{{ file.name }}</h3>
-        <v-flex v-for="tag in productTags" :key="tag.id">
-          <v-chip dark @click="removeTag(tag)">{{ tag.name }}</v-chip>
-          <br />
-        </v-flex>
-        <h3>Choose tags for this product</h3>
-        <v-flex v-if="dataIsHere">
-          <v-flex v-for="tag in tags" :key="tag.id">
-            <v-chip @click="tagClick(tag)">{{ tag.name }}</v-chip>
+    <v-flex xs6 offset-xs3>
+      <v-card elevation="5">
+        <h1 class="display-3">Create A New Product</h1>
+        <v-form
+          ref="form"
+          lazy-validation
+          enctype="multipart/form-data"
+          method="POST"
+        >
+          <v-text-field
+            label="Name"
+            v-model="product.name"
+            required
+            :rules="rules"
+            class="pl-12 pr-12"
+          ></v-text-field>
+          <v-text-field
+            label="Description"
+            v-model="product.description"
+            required
+            :rules="rules"
+            class="pl-12 pr-12"
+          ></v-text-field>
+          <v-text-field
+            label="Price"
+            v-model="product.price"
+            required
+            :rules="rules"
+            type="number"
+            class="pl-12 pr-12"
+          ></v-text-field>
+          <v-flex>
+            <h3 v-if="!file" class="display-1">Upload 3D Model</h3>
+            <h3 v-if="file" class="display-1">{{ file.name }}</h3>
+            <v-btn dark x-large>
+              <label>
+                <div>
+                  <span class="material-icons"> file_upload </span>
+                  <div>Choose a .GLB file</div>
+                </div>
+                <input
+                  type="file"
+                  id="file"
+                  ref="file"
+                  v-on:change="handleFileUpload()"
+                  class="file-input"
+                  accept=".glb"
+                />
+              </label>
+            </v-btn>
             <br />
+            <br />
+            <v-row justify="center">
+              <v-col cols="12" sm="7" md="6" lg="5">
+                <v-sheet elevation="10" rounded="xl">
+                  <v-sheet dark rounded="t-xl">
+                    <h3>Choose tags for this product</h3>
+                  </v-sheet>
+                  <div class="pa-4">
+                    <v-flex v-if="dataIsHere">
+                      <v-chip-group column>
+                        <v-chip
+                          v-for="tag in tags"
+                          :key="tag.id"
+                          @click="tagClick(tag)"
+                          >{{ tag.name }}</v-chip
+                        >
+                      </v-chip-group>
+                    </v-flex>
+                  </div>
+                </v-sheet>
+              </v-col>
+            </v-row>
           </v-flex>
-        </v-flex>
-      </v-flex>
-      <div class="error" v-if="error">{{ error }}</div>
-      <br />
-      <v-btn @click="add" dark>Add Product</v-btn>
-    </v-form>
+          <br />
+          <v-row justify="center">
+            <v-col cols="12" sm="7" md="6" lg="5">
+              <v-sheet elevation="10" rounded="xl">
+                <v-sheet dark rounded="t-xl">
+                  <h3>Selected Tags</h3>
+                </v-sheet>
+                <div class="pa-4">
+                  <v-flex v-if="dataIsHere">
+                    <v-chip-group column>
+                      <v-chip
+                        v-for="tag in productTags"
+                        :key="tag.id"
+                        dark
+                        @click="removeTag(tag)"
+                        >{{ tag.name }}</v-chip
+                      >
+                    </v-chip-group>
+                  </v-flex>
+                </div>
+              </v-sheet>
+            </v-col>
+          </v-row>
+          <br/>
+          <div class="error" v-if="error">{{ error }}</div>
+          <br />
+          <v-btn @click="add" dark>Add Product</v-btn>
+          <p class="myColor">.</p>
+        </v-form>
+      </v-card>
+    </v-flex>
   </v-container>
 </template>
 
@@ -79,7 +123,7 @@ export default {
         isDeleted: false,
         isCustom: false,
         //selected tag ids for this product
-        tagIds: []
+        tagIds: [],
       },
       //selected tags for this product, shown on page
       productTags: [],
@@ -138,7 +182,9 @@ export default {
     },
     removeTag(tag) {
       this.productTags = this.productTags.filter((item) => item !== tag);
-      this.product.tagIds = this.product.tagIds.filter((item) => item !== tag.id);
+      this.product.tagIds = this.product.tagIds.filter(
+        (item) => item !== tag.id
+      );
     },
     formCheck() {
       //search all filed of object and check if keys have a value
@@ -165,5 +211,8 @@ export default {
 <style scoped>
 input[type="file"] {
   display: none;
+}
+.myColor {
+  color: white;
 }
 </style>

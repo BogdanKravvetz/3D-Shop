@@ -6,9 +6,19 @@
     </v-toolbar-items>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn v-if="$store.state.isUserLoggedIn" text dark @click="navigateTo({name:'Cart'})"><span class="material-icons">
+          
+      <v-btn v-if="$store.state.isUserLoggedIn" text dark @click="navigateTo2({name:'Cart'})"><v-badge
+        :value="isNew"
+        class="pt-1"
+        bordered
+        color="pink"
+        dot
+        left
+        overlap
+      ><span class="material-icons">
 shopping_cart
-</span>Cart</v-btn>
+</span></v-badge>Cart</v-btn>
+
       <v-btn v-if="$store.state.isUserLoggedIn" text dark @click="navigateTo({name:'CustomOrder'})">Custom Order</v-btn>
       <v-btn v-if="$store.state.isUserLoggedIn" text dark @click="navigateTo({name:'UserOrders'})">{{$store.state.user.firstName +' '+ $store.state.user.lastName}}</v-btn>
       <v-btn v-if="!$store.state.isUserLoggedIn" text dark @click="navigateTo({name:'Login'})">Login</v-btn>
@@ -20,9 +30,22 @@ shopping_cart
 
 <script>
 export default {
+  name: "Header",
+  data() {
+    return {
+      isNew: false,
+    };
+  },
+  created() {
+    this.$root.$refs.Header = this;
+  },
   methods: {
     navigateTo (route) {
       this.$router.push(route)
+    },
+    navigateTo2 (route) {
+      this.$router.push(route)
+      this.isNew = false
     },
     logout () {
       this.$store.dispatch('setToken', null)
@@ -30,6 +53,9 @@ export default {
       this.$router.push({
         name: 'HelloWorld'
       })
+    },
+    setNew(value){
+      this.isNew = value
     }
   }
 }

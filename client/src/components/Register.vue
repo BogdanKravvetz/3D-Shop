@@ -2,34 +2,29 @@
   <v-layout>
     <v-flex xs4 offset-xs4>
       <div class="white elevation-2">
-        <v-toolbar text dense dark>
-          <v-toolbar-title>Register</v-toolbar-title>
-        </v-toolbar>
+        <v-card text dense dark>
+          <v-card-title class="justify-center">Register</v-card-title>
+        </v-card>
         <div>
           <form name="register-form" autocomplete="off">
-            <br />
-            <v-text-field label="Email" v-model="email"></v-text-field>
-            <br />
+            <v-text-field label="Email" v-model="email" class="pl-12 pr-12"></v-text-field>
             <v-text-field
               label="Password"
               v-model="password"
               type="password"
               autocomplete="new-password"
+              class="pl-12 pr-12"
             ></v-text-field>
-            <br />
-            <v-text-field label="First Name" v-model="firstName"></v-text-field>
-            <br />
-            <v-text-field label="Last Name" v-model="lastName"></v-text-field>
-            <br />
-            <vue-tel-input-vuetify v-model="phone"></vue-tel-input-vuetify>
-            <br />
+            <v-text-field label="First Name" v-model="firstName" class="pl-12 pr-12"></v-text-field>
+            <v-text-field label="Last Name" v-model="lastName" class="pl-12 pr-12"></v-text-field>
+            <vue-tel-input-vuetify v-model="phone" class="pl-12 pr-12"></vue-tel-input-vuetify>
           </form>
           <div class="error" v-html="error"></div>
-          <br />
           <v-btn @click="register" dark>Register</v-btn>
-          <hr />
+          <p class="myColor">.</p>
         </div>
       </div>
+      <model-viewer class="test" v-if="isMounted" :src="filePath" auto-rotate camera-orbit="40deg 55deg 4.5m"></model-viewer>
     </v-flex>
   </v-layout>
 </template>
@@ -37,6 +32,7 @@
 <script>
 import AuthenticationService from "@/services/AuthenticationService";
 import {VueTelInputVuetify} from "vue-tel-input-vuetify";
+import ConfigApi from "@/services/ConfigApi";
 export default {
   name: "Register",
   data() {
@@ -50,7 +46,21 @@ export default {
       isAdmin: false,
       isDeleted: false,
       error: null,
+      isMounted: false,
+      filePath: ConfigApi.connection.link +
+        ":" +
+        ConfigApi.connection.port +
+        "/products/cube.glb"
     };
+  },
+  async mounted() {
+    this.loadComponent();
+    this.isMounted = true;
+  },
+  computed: {
+    loadComponent() {
+      return () => import("@google/model-viewer");
+    },
   },
   methods: {
     async register() {
@@ -81,7 +91,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped src="vuetify/dist/vuetify.min.css">
+
+
 .error {
   color: red;
+}
+
+</style>
+<style scoped>
+model-viewer {
+  height: 400px;
+  width: 795px;
+  max-width: 100%;
+  /* background-color: rgb(63, 63, 63); */
+}
+.myColor {
+  color: white;
 }
 </style>
